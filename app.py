@@ -253,6 +253,27 @@ HTML_TEMPLATE = """
         .full-grid-item img, .full-grid-item video {
             width: 100%; height: 100%; object-fit: cover;
         }
+
+        /* Fixed Bottom Right Badge (cmm.png) */
+        .bottom-right-badge {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 100px;
+            height: auto;
+            z-index: 99;
+            pointer-events: none;
+            opacity: 0.9;
+            transition: opacity 0.3s ease;
+        }
+
+        @media (max-width: 600px) {
+            .bottom-right-badge {
+                width: 70px;
+                bottom: 10px;
+                right: 10px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -286,7 +307,6 @@ HTML_TEMPLATE = """
             <div class="carousel-container">
                 <div class="carousel-title">🔥 Recent Uploads</div>
                 <div class="carousel-track">
-                    <!-- Duplicated array to create a continuous seamless loop -->
                     {% for item in recent_5 + recent_5 %}
                         <div class="carousel-item" onclick="openAllModal()">
                             {% if item.resource_type == 'video' %}
@@ -337,6 +357,9 @@ HTML_TEMPLATE = """
         </div>
     </div>
 
+    <!-- Fixed Bottom Right Static Image -->
+    <img src="/static/cmm.png" alt="Event Emblem" class="bottom-right-badge">
+
     <script>
         function showFileName(input) {
             const fileNameDiv = document.getElementById('fileName');
@@ -370,7 +393,6 @@ def index():
     all_media = []
     recent_5 = []
     try:
-        # Fetch up to 100 uploads from Cloudinary ordered by newest first
         response = cloudinary.api.resources(
             type="upload",
             prefix="event_uploads/",
@@ -378,7 +400,7 @@ def index():
             direction="desc"
         )
         all_media = response.get("resources", [])
-        recent_5 = all_media[:5]  # Select the top 5 most recent
+        recent_5 = all_media[:5]
     except Exception as e:
         print("Error fetching media from Cloudinary:", e)
 
