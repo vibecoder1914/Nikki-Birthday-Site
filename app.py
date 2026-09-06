@@ -254,7 +254,7 @@ HTML_TEMPLATE = """
             width: 100%; height: 100%; object-fit: cover;
         }
 
-        /* Fixed Bottom Right Badge (cmm.png) */
+        /* Fixed Bottom Right Badge Link (cmm.png) */
         .bottom-right-badge {
             position: fixed;
             bottom: 20px;
@@ -262,9 +262,21 @@ HTML_TEMPLATE = """
             width: 100px;
             height: auto;
             z-index: 99;
-            pointer-events: none;
+            pointer-events: auto;
             opacity: 0.9;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.3s ease, transform 0.2s ease;
+            display: block;
+        }
+
+        .bottom-right-badge img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .bottom-right-badge:hover {
+            opacity: 1;
+            transform: scale(1.05);
         }
 
         @media (max-width: 600px) {
@@ -357,8 +369,10 @@ HTML_TEMPLATE = """
         </div>
     </div>
 
-    <!-- Fixed Bottom Right Static Image -->
-    <img src="/static/cmm.png" alt="Event Emblem" class="bottom-right-badge">
+    <!-- Fixed Bottom Right Static Image with Mailto Link -->
+    <a href="mailto:MillerVantageC@icloud.com?subject=Business%20Inquiry" class="bottom-right-badge" title="Send a Business Inquiry">
+        <img src="/static/cmm.png" alt="Business Inquiry Emblem">
+    </a>
 
     <script>
         function showFileName(input) {
