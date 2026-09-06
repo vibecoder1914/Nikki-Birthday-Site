@@ -16,19 +16,19 @@ cloudinary.config(
     api_secret=os.getenv("API_SECRET")
 )
 
-# Professional UI Template with Drag & Drop, Audio, and Live Gallery
+# Professional UI Template with Gold Banner, Spaced Layout, Audio & Live Gallery
 HTML_TEMPLATE = """
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Event Media Portal</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Fierce at 50! - Event Media Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
-       body { 
+        body { 
             font-family: 'Plus Jakarta Sans', -apple-system, sans-serif; 
             min-height: 100vh;
             display: flex;
@@ -36,13 +36,41 @@ HTML_TEMPLATE = """
             align-items: center;
             justify-content: flex-start;
             
-            /* Background image with a dark overlay for text readability */
-            background: linear-gradient(rgba(15, 23, 42, 0.75), rgba(15, 23, 42, 0.75)), 
+            /* Custom background image with a dark overlay */
+            background: linear-gradient(rgba(15, 23, 42, 0.65), rgba(15, 23, 42, 0.75)), 
                         url('/static/bg.png') no-repeat center center fixed;
             background-size: cover;
             
             color: #f8fafc;
-            padding: 2rem 1rem;
+            padding: 2rem 1rem 4rem 1rem;
+        }
+
+        /* Gold Banner Header */
+        .gold-banner {
+            width: 100%;
+            max-width: 800px;
+            text-align: center;
+            padding: 1.5rem 1rem;
+            margin-top: 2rem;
+            margin-bottom: 8rem; /* Creates space so the background photo is visible */
+            background: rgba(15, 23, 42, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 20px;
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(212, 175, 55, 0.2);
+        }
+
+        .gold-banner h1 {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(2.2rem, 6vw, 3.8rem);
+            font-weight: 700;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, #FFE57F 0%, #D4AF37 50%, #AA7C11 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+            text-transform: uppercase;
         }
 
         .container {
@@ -50,25 +78,26 @@ HTML_TEMPLATE = """
             max-width: 800px;
             display: flex;
             flex-direction: column;
-            gap: 2rem;
+            gap: 3rem;
             align-items: center;
         }
 
+        /* Upload Card Container */
         .card { 
-            background: rgba(255, 255, 255, 0.07); 
+            background: rgba(255, 255, 255, 0.08); 
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             width: 100%;
             max-width: 480px; 
             padding: 2.5rem 2rem; 
             border-radius: 24px; 
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
             text-align: center;
         }
 
-        .header h1 {
-            font-size: 1.65rem;
+        .header h2 {
+            font-size: 1.5rem;
             font-weight: 700;
             margin-bottom: 0.5rem;
             background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
@@ -79,7 +108,7 @@ HTML_TEMPLATE = """
         .header p { color: #94a3b8; font-size: 0.925rem; margin-bottom: 1.5rem; }
 
         .drop-zone {
-            border: 2px dashed rgba(255, 255, 255, 0.25);
+            border: 2px dashed rgba(212, 175, 55, 0.4);
             border-radius: 16px;
             padding: 2rem 1rem;
             background: rgba(255, 255, 255, 0.03);
@@ -88,24 +117,34 @@ HTML_TEMPLATE = """
             margin-bottom: 1.5rem;
         }
 
-        .drop-zone:hover { border-color: #818cf8; background: rgba(99, 102, 241, 0.1); }
+        .drop-zone:hover { 
+            border-color: #D4AF37; 
+            background: rgba(212, 175, 55, 0.1); 
+        }
+        
         .drop-icon { font-size: 2.2rem; margin-bottom: 0.75rem; display: block; }
         .drop-text { font-size: 0.9rem; color: #cbd5e1; font-weight: 500; }
         .file-input { display: none; }
-        .file-info { font-size: 0.85rem; color: #38bdf8; margin-top: 0.5rem; font-weight: 600; }
+        .file-info { font-size: 0.85rem; color: #FFE57F; margin-top: 0.5rem; font-weight: 600; }
 
         .btn-upload { 
-            background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%); 
-            color: white; border: none; padding: 0.9rem 1.5rem; 
-            border-radius: 12px; font-size: 1rem; font-weight: 600; 
+            background: linear-gradient(135deg, #D4AF37 0%, #AA7C11 100%); 
+            color: #0f172a; border: none; padding: 0.9rem 1.5rem; 
+            border-radius: 12px; font-size: 1rem; font-weight: 700; 
             cursor: pointer; width: 100%; 
-            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+        }
+
+        .btn-upload:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
         }
 
         .audio-container { margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid rgba(255, 255, 255, 0.1); }
         .audio-label { font-size: 0.8rem; color: #94a3b8; margin-bottom: 0.5rem; display: block; }
         audio { width: 100%; height: 32px; filter: invert(0.9) hue-rotate(180deg); opacity: 0.8; }
-        .loading { display: none; margin-top: 1rem; font-size: 0.9rem; color: #a5b4fc; }
+        .loading { display: none; margin-top: 1rem; font-size: 0.9rem; color: #FFE57F; }
 
         /* Gallery Section */
         .gallery-section { width: 100%; }
@@ -124,7 +163,7 @@ HTML_TEMPLATE = """
             border-radius: 16px;
             overflow: hidden;
             border: 1px solid rgba(255, 255, 255, 0.12);
-            background: rgba(0,0,0,0.2);
+            background: rgba(0,0,0,0.3);
         }
 
         .gallery-item img, .gallery-item video {
@@ -141,11 +180,16 @@ HTML_TEMPLATE = """
 </head>
 <body>
 
+    <!-- Gold Banner Header -->
+    <div class="gold-banner">
+        <h1>Fierce at 50!</h1>
+    </div>
+
     <div class="container">
         <!-- Upload Card -->
         <div class="card">
             <div class="header">
-                <h1>Capture the Moment ✨</h1>
+                <h2>Capture the Moment ✨</h2>
                 <p>Upload your event photos and videos below</p>
             </div>
 
@@ -215,7 +259,7 @@ HTML_TEMPLATE = """
 def index():
     media_items = []
     try:
-        # Fetch the latest 12 uploads from the event_uploads folder
+        # Fetch up to 12 recent uploads from Cloudinary
         response = cloudinary.api.resources(
             type="upload",
             prefix="event_uploads/",
@@ -241,7 +285,6 @@ def upload_file():
         folder="event_uploads"
     )
     
-    # Redirect back to the index page to immediately see the new upload in the gallery
     return """
     <script>
         alert("Upload successful! 🎉");
