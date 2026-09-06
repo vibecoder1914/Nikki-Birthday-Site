@@ -28,14 +28,19 @@ HTML_TEMPLATE = """
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
-        body { 
+       body { 
             font-family: 'Plus Jakarta Sans', -apple-system, sans-serif; 
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
-            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #311042 100%);
+            
+            /* Background image with a dark overlay for text readability */
+            background: linear-gradient(rgba(15, 23, 42, 0.75), rgba(15, 23, 42, 0.75)), 
+                        url('/static/bg.png') no-repeat center center fixed;
+            background-size: cover;
+            
             color: #f8fafc;
             padding: 2rem 1rem;
         }
